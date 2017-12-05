@@ -1,54 +1,50 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
-import { HiddenOnlyAuth, VisibleOnlyAuth } from './util/wrappers.js'
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+} from 'react-router-dom'
+import { Provider } from 'react-redux'
+import getWeb3 from './util/web3/getWeb3'
 
-// UI Components
-import LoginButtonContainer from './user/ui/loginbutton/LoginButtonContainer'
-import LogoutButtonContainer from './user/ui/logoutbutton/LogoutButtonContainer'
+import store from './store'
 
-// Styles
-import './css/oswald.css'
-import './css/open-sans.css'
-import './css/pure-min.css'
-import './App.css'
+import { Layout } from 'antd'
+import Nav from './Nav'
+import Home from './pages/home/Home'
+import Dashboard from './pages/dashboard/Dashboard'
 
-class App extends Component {
+import 'antd/dist/antd.css'
+
+// Initialize web3 and set in Redux.
+getWeb3
+  .then(() => {
+    console.log('Web3 initialized!')
+  })
+  .catch(() => {
+    console.log('Error in web3 initialization.')
+  })
+
+export default class App extends Component {
+
   render() {
-    const OnlyAuthLinks = VisibleOnlyAuth(() =>
-      <span>
-        <li className="pure-menu-item">
-          <Link to="/dashboard" className="pure-menu-link">Dashboard</Link>
-        </li>
-        <li className="pure-menu-item">
-          <Link to="/profile" className="pure-menu-link">Profile</Link>
-        </li>
-        <LogoutButtonContainer />
-      </span>
-    )
-
-    const OnlyGuestLinks = HiddenOnlyAuth(() =>
-      <span>
-        <li className="pure-menu-item">
-          <Link to="/signup" className="pure-menu-link">Sign Up</Link>
-        </li>
-        <LoginButtonContainer />
-      </span>
-    )
-
     return (
-      <div className="App">
-        <nav className="navbar pure-menu pure-menu-horizontal">
-          <ul className="pure-menu-list navbar-right">
-            <OnlyGuestLinks />
-            <OnlyAuthLinks />
-          </ul>
-          <Link to="/" className="pure-menu-heading pure-menu-link">Truffle Box</Link>
-        </nav>
-
-        {this.props.children}
-      </div>
-    );
+      <Provider store={store}>
+        <BrowserRouter>
+          <Layout>
+            <Layout.Header>
+              <Nav />
+            </Layout.Header>
+            <Layout.Content>
+              <Switch>
+                <Route component={Home} />
+                <Route path="/dashboard" component={Dashboard} />
+              </Switch>
+            </Layout.Content>
+          </Layout>
+        </BrowserRouter>
+      </Provider>
+    )
   }
-}
 
-export default App
+}
