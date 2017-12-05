@@ -16,8 +16,12 @@ const paths = {
   outputPath: path.join(__dirname, 'dist', BUILD_PUBLIC_PATH),
 }
 
+const context = path.resolve(__dirname, 'src')
+
 export default {
-  entry: './src/index.js',
+  context,
+
+  entry: 'index.js',
 
   output: {
     path: paths.outputPath,
@@ -31,9 +35,6 @@ export default {
       path.join(__dirname, 'src'),
       'node_modules',
     ],
-    alias: {
-      styles: path.join(__dirname, 'src/styles'),
-    },
   },
 
   module: {
@@ -69,6 +70,14 @@ export default {
           loader: 'babel-loader',
           options: {
             cacheDirectory: true,
+            plugins: [
+              [
+                'react-css-modules',
+                {
+                  context,
+                }
+              ]
+            ],
           }
         }],
         exclude: /node_modules/,
@@ -80,7 +89,9 @@ export default {
             {
               loader: 'css-loader',
               options: {
-                importLoader: 1,
+                importLoaders: 1,
+                modules: true,
+                localIdentName: '[name]___[local]',
               }
             },
             'postcss-loader'
@@ -101,7 +112,7 @@ export default {
   },
 
   plugins: [
-    new ExtractTextPlugin('styles/[name].css'),
+    new ExtractTextPlugin('[name].css'),
   ],
 
   node: {

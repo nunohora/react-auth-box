@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { Button, Menu } from 'antd'
 
-class Nav extends Component {
+import './app.css'
+
+export default class Nav extends Component {
 
   onLoginClick() {
 
@@ -12,7 +14,7 @@ class Nav extends Component {
       <div>
         <Menu>
         </Menu>
-        <div>
+        <div styleName="bla">
           <Button>
             Login
           </Button>
@@ -22,5 +24,3 @@ class Nav extends Component {
   }
 
 }
-
-export default Nav

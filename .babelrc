@@ -7,7 +7,10 @@
     "transform-es2015-modules-commonjs",
     "transform-decorators-legacy",
     "transform-object-rest-spread",
-    "react-css-modules",
+    ["react-css-modules", {
+      "generateScopedName": "[name]___[local]",
+      "webpackHotModuleReloading": true
+    }],
     ["import", {"libraryName": "antd"}]
   ]
 }
