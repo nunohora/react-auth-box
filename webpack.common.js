@@ -31,10 +31,14 @@ export default {
   },
 
   resolve: {
+    extensions: ['.js', '.less', '.css'],
     modules: [
       path.join(__dirname, 'src'),
       'node_modules',
     ],
+    alias: {
+      styles: path.join(__dirname, 'src/styles'),
+    },
   },
 
   module: {
@@ -75,12 +79,48 @@ export default {
                 'react-css-modules',
                 {
                   context,
+                  exclude: '../node_modules',
                 }
               ]
             ],
           }
         }],
         exclude: /node_modules/,
+      },
+      {
+        test: /\.less$/,
+        use: ExtractTextPlugin.extract({
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                localIdentName: '[local]',
+              }
+            },
+            { loader: 'postcss-loader' },
+            { loader: 'less-loader' },
+          ],
+          publicPath: BUILD_PUBLIC_BUNDLE_PATH,
+        })
+      },
+      {
+        test: /\.less$/,
+        exclude: /\/node_modules\//i,
+        use: ExtractTextPlugin.extract({
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                localIdentName: '[name]___[local]',
+              }
+            },
+            { loader: 'postcss-loader' },
+            { loader: 'less-loader' },
+          ],
+          publicPath: BUILD_PUBLIC_BUNDLE_PATH,
+        })
       },
       {
         test: /\.css$/,

@@ -9,8 +9,17 @@
     "transform-object-rest-spread",
     ["react-css-modules", {
       "generateScopedName": "[name]___[local]",
-      "webpackHotModuleReloading": true
+      "webpackHotModuleReloading": true,
+      "exclude": "node_modules/antd/dist/antd.less",
+      "filetypes": {
+        ".less": {
+          "syntax": "postcss-less"
+        }
+      }
     }],
-    ["import", {"libraryName": "antd"}]
+    ["import", {
+      "libraryName": "antd",
+      "libraryDirectory": "es"
+    }]
   ]
 }

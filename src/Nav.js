@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Menu } from 'antd'
 
-import './app.css'
-
 export default class Nav extends Component {
 
   onLoginClick() {
@@ -14,7 +12,7 @@ export default class Nav extends Component {
       <div>
         <Menu>
         </Menu>
-        <div styleName="bla">
+        <div>
           <Button>
             Login
           </Button>

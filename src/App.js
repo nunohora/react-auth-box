@@ -14,8 +14,6 @@ import Nav from './Nav'
 import Home from './pages/home/Home'
 import Dashboard from './pages/dashboard/Dashboard'
 
-import 'antd/dist/antd.css'
-
 // Initialize web3 and set in Redux.
 getWeb3
   .then(() => {
