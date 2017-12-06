@@ -53,22 +53,6 @@ export default {
         exclude: /node_modules/,
       },
       {
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          name: 'static/media/[name].[hash:8].[ext]'
-        },
-        exclude: [
-          /\.html$/,
-          /\.(js|jsx)$/,
-          /\.css$/,
-          /\.json$/,
-          /\.woff$/,
-          /\.woff2$/,
-          /\.(ttf|svg|eot)$/
-        ],
-      },
-      {
         test: /\.(js|jsx)$/,
         use: [{
           loader: 'babel-loader',

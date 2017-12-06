@@ -1,4 +1,7 @@
+import path from 'path'
 import CleanWebpackPlugin from 'clean-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import UglifyJSPlugin from 'uglifyjs-webpack-plugin'
 import webpack from 'webpack'
 import merge from 'webpack-merge'
 import common from './webpack.common'
@@ -14,7 +17,9 @@ const webpackProdConfig = merge(common, {
         comments: false,
       },
     }),
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'src/index.html'),
+    }),
   ],
 })
 
